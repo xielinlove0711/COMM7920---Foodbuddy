@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Foodbuddy",
-  "short_name": "Foodbuddy",
+  "name": "Food buddy",
+  "short_name": "Food buddy",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,13 +9,13 @@
   "theme_color": "#d76b3e",
   "icons": [
     {
-      "src": "assets/app-icon-192.png",
+      "src": "assets/food-buddy-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/app-icon-512.png",
+      "src": "assets/food-buddy-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
