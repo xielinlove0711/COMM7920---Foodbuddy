@@ -1150,6 +1150,14 @@ body:has(#screen-dish.on) #foodbuddy-assistant{bottom:calc(84px + env(safe-area-
 #screen-home>.home-wrap{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 @media(max-width:360px){#screen-home .home-header{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}#screen-home .greeting-brand{gap:7px}#screen-home .greeting-spark{display:none}}
 </style>
+<style>
+#screen-home .home-header>div{grid-template-columns:minmax(0,1fr) 76px}
+#screen-home .quick-gooey-nav>.gooey-entry:has(#pf-entry-av){width:76px;min-width:76px;height:40px;display:flex;align-items:center;justify-content:center;gap:7px;padding:4px 9px;border:1px solid #fff4dc;border-radius:99px;background:#fff0d2;box-shadow:0 3px 0 #a94e2525;box-sizing:border-box}
+#screen-home .profile-entry-label{display:block;font-family:"Chalkboard SE","Comic Sans MS",cursive;font-size:13px;font-weight:800;color:#98532e;line-height:1}
+#screen-home .quick-gooey-nav>.gooey-entry:has(#pf-entry-av):after{display:none}
+#screen-home .quick-gooey-nav>.gooey-entry:has(#pf-entry-av):active{transform:translateY(2px);box-shadow:none}
+#screen-home #pf-entry-av{width:27px;height:27px;flex:0 0 27px}
+</style>
 </head><body>
 <div class="shell">
 
@@ -1192,7 +1200,7 @@ body:has(#screen-dish.on) #foodbuddy-assistant{bottom:calc(84px + env(safe-area-
         <button type="button" id="locbar" class="pf-entry gooey-entry location-entry" onclick="openLocModal()" title="Change location" aria-label="Change location"><span class="quick-icon">📍</span><span class="location-label">Set location</span></button>
         <button class="pf-entry gooey-entry" onclick="gooeyNav(this,'profile')" title="My profile" aria-label="My profile">
           <span class="pf-entry-av" id="pf-entry-av">👤</span>
-          <span class="quick-label">Profile</span>
+          <span class="profile-entry-label">Me</span>
         </button>
         </nav>
       </div>
