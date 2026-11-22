@@ -1379,6 +1379,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;width:100%;overflow-x:c
 #screen-home .home-header-layout #locbar:active{transform:scale(.94);background:#fff1d54a}
 @media(max-width:350px){#screen-home .home-header>.home-header-layout{grid-template-columns:minmax(0,1fr) 36px 58px;gap:7px}}
 </style>
+<style id="location-city-spacing">
+#screen-home .home-header>.home-header-layout{grid-template-columns:minmax(0,1fr) 70px 76px;column-gap:12px;grid-template-rows:38px}
+#screen-home .home-header-layout #locbar{width:70px;min-width:70px;height:36px;justify-self:stretch;justify-content:center;gap:4px;padding:0 6px;box-sizing:border-box}
+#screen-home .home-header-layout #locbar:before{width:17px;height:20px;flex:0 0 17px}
+#screen-home .home-header-layout #locbar .location-label{display:block!important;flex:0 1 auto;max-width:36px;font-size:11px;font-weight:700;line-height:1;color:#fff8e9;text-align:left;overflow:hidden;white-space:nowrap}
+#screen-home .home-header-layout .quick-gooey-nav>.pf-entry:not(.location-entry){grid-column:3;width:76px;min-width:76px;max-width:76px;height:36px;box-sizing:border-box;padding:4px 7px;margin:0;justify-self:end;gap:5px}
+@media(max-width:350px){#screen-home .home-header>.home-header-layout{grid-template-columns:minmax(0,1fr) 64px 64px;column-gap:9px}#screen-home .home-header-layout #locbar{width:64px;min-width:64px;padding:0 4px;gap:3px}#screen-home .home-header-layout .quick-gooey-nav>.pf-entry:not(.location-entry){width:64px;min-width:64px;max-width:64px;padding:4px;gap:3px}}
+</style>
 </head><body>
 <div class="shell">
 
@@ -2869,7 +2877,7 @@ function renderLocBar(){
   if(el){
     const label=T.loc.status==='ok' ? (T.loc.display||T.loc.city||'Set location') : 'Set location';
     el.innerHTML='<span class="quick-icon">📍</span><span class="location-label"></span>';
-    el.querySelector('.location-label').textContent=label;
+    const regionKey=T.loc.region||T.region||'';const cityCode=T.loc.status==='ok'?(regionKey.startsWith('hk-')?'HK':regionKey.startsWith('ca-')?'TOR':(T.loc.city||'').slice(0,3).toUpperCase()):'Set';el.querySelector('.location-label').textContent='· '+cityCode;
     el.title='Change location · '+label;
     el.setAttribute('aria-label','Change location · '+label);
   }
