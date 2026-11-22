@@ -1134,6 +1134,22 @@ body:has(#screen-dish.on) #foodbuddy-assistant{bottom:calc(84px + env(safe-area-
 <style>
 #install-foodbuddy{display:grid;place-items:center;flex-shrink:0;width:32px;height:32px;border:1px solid #ffe6b5;border-radius:11px;background:#fff0d5;color:#ad5b2e;box-shadow:0 2px 0 #a74a2720;font-size:25px;line-height:1;padding:0}#install-foodbuddy:active{transform:scale(.94)}#install-foodbuddy[hidden],#installed-wave[hidden]{display:none!important}.install-help-card{position:relative}.install-help-card h2{font-size:20px;padding-right:28px}.install-help-card p{font-size:13px;line-height:1.7;color:#99704c}.install-help-close{position:absolute;right:14px;top:12px;width:34px;height:34px;border:0;border-radius:50%;background:#f9edda;color:#75452c;font-size:25px;padding:0;display:grid;place-items:center}
 </style>
+<style>
+#screen-home .home-header{padding:calc(16px + env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) 13px max(22px,env(safe-area-inset-left));box-sizing:border-box}
+#screen-home .home-header>div{column-gap:13px;row-gap:8px}
+#screen-home .greeting-brand{gap:9px;min-width:0}
+#screen-home #welcome{font-size:clamp(18px,5vw,21px);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;overflow-wrap:normal}
+#install-foodbuddy{width:36px;height:36px;flex:0 0 36px}
+#screen-home .quick-gooey-nav>.gooey-entry:has(#pf-entry-av){margin:0;width:36px;height:36px}
+#screen-home .quick-gooey-nav>.gooey-entry:has(#pf-entry-av):after{right:-2px;top:-4px}
+#screen-home .quick-gooey-nav>.location-entry{max-width:100%;min-width:0}
+#screen-home .quick-gooey-nav .location-label{max-width:calc(100vw - 105px)}
+#screen-home .discovery-tabs{padding:8px max(18px,env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+#screen-home .discovery-tabs button,#screen-home .discovery-tabs button[aria-selected=true],#screen-home .discovery-tabs button[aria-selected=false]{min-height:49px;padding:4px 5px;gap:4px}
+#screen-home .matcher-footer{bottom:calc(67px + env(safe-area-inset-bottom))}
+#screen-home>.home-wrap{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+@media(max-width:360px){#screen-home .home-header{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}#screen-home .greeting-brand{gap:7px}#screen-home .greeting-spark{display:none}}
+</style>
 </head><body>
 <div class="shell">
 
