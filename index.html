@@ -2486,7 +2486,7 @@ function renderDishes(){
     g.querySelector('p').textContent=label+' recipes are on the way. Explore our Japanese dishes for now.';
     return;
   }
-  const results=[...DISHES].filter(d=>[d.name,d.enjp,d.key].some(value=>value.toLowerCase().includes(query))).sort((a,b)=>Number(b.key==='omurice')-Number(a.key==='omurice'));
+  const results=[...DISHES].filter(d=>[d.name,d.enjp,d.key].some(value=>value.toLowerCase().includes(query))).sort((a,b)=>(Number(b.key==='omurice')-Number(a.key==='omurice'))||(Number(Boolean(b.img))-Number(Boolean(a.img))));
   results.forEach(d=>{
     const dif=d.difKey==='easy'?'dif-easy':(d.difKey==='hard'?'dif-hard':'dif');
     const inner = d.img
