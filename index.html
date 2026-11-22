@@ -1338,6 +1338,20 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;width:100%;overflow-x:c
 @media(max-width:600px),(pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),textarea,select,#ingredients-panel .ing-input,#screen-matcher .ing-input{font-size:16px!important}#screen-home .home-header>div{min-width:0;max-width:100%}#screen-home .quick-gooey-nav{min-width:0;max-width:100%}#screen-home .quick-gooey-nav .location-entry{min-width:0;overflow:hidden}#screen-home .quick-gooey-nav .location-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#screen-home .greeting-brand{min-width:0}#screen-dish #tabs{max-width:100%}#screen-dish #tabs button{min-width:0}}
 @media(max-width:360px){#screen-home #welcome{font-size:17px}#screen-home .home-header>div{column-gap:8px}#screen-home .quick-gooey-nav .location-label{max-width:110px}}
 </style>
+<style id="home-header-grid-fix">
+#screen-home .home-header{padding-top:calc(12px + env(safe-area-inset-top));padding-bottom:11px;min-height:0}
+#screen-home .home-header>.home-header-layout{display:grid;grid-template-columns:minmax(0,1fr) 76px;grid-template-rows:40px 24px;column-gap:12px;row-gap:7px;align-items:center;width:100%;min-width:0}
+#screen-home .home-header-layout>.greeting-brand{grid-column:1;grid-row:1;display:flex;flex-wrap:nowrap;gap:9px;min-width:0;width:100%;margin:0;padding:0}
+#screen-home .home-header-layout>.quick-gooey-nav{display:contents}
+#screen-home .home-header-layout .pf-entry:not(.location-entry){grid-column:2;grid-row:1;justify-self:end;align-self:center;margin:0}
+#screen-home .home-header-layout #locbar{grid-column:1/-1;grid-row:2;justify-self:start;width:auto;max-width:100%;min-width:0;height:24px;margin:0;padding:0;background:transparent;display:flex;justify-content:flex-start;gap:5px;overflow:hidden}
+#screen-home .home-header-layout #locbar .location-label{max-width:calc(100vw - 95px);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:1.3}
+#screen-home .home-header-layout #locbar .quick-icon{font-size:15px;flex:none}
+#screen-home .home-header-layout #install-foodbuddy{width:38px;height:38px;flex:0 0 38px;border-radius:12px}
+#screen-home .home-header-layout #welcome{font-size:20px;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+#screen-home .home-header>.test-mode-caption{margin-top:5px;font-size:9px;line-height:1.3}
+@media(max-width:350px){#screen-home .home-header>.home-header-layout{grid-template-columns:minmax(0,1fr) 68px;column-gap:9px}#screen-home .home-header-layout .pf-entry:not(.location-entry){width:68px;min-width:68px;gap:4px;padding:4px 6px}#screen-home .home-header-layout #welcome{font-size:18px}#screen-home .home-header-layout>.greeting-brand{gap:7px}#screen-home .greeting-spark{display:none}}
+</style>
 </head><body>
 <div class="shell">
 
@@ -1374,7 +1388,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;width:100%;overflow-x:c
   <!-- ============ SCREEN: HOME (dish selection) ============ -->
   <div class="screen" id="screen-home">
     <header class="home-header">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <div class="home-header-layout">
         <div class="brand greeting-brand" style="flex:1"><button type="button" id="install-foodbuddy" aria-label="Add Foodbuddy to home screen" title="Add to home screen" onclick="installFoodbuddy()"><svg width="21" height="23" viewBox="0 0 24 26" fill="none" aria-hidden="true"><rect x="4" y="2" width="14" height="22" rx="4" stroke="currentColor" stroke-width="2"/><path d="M9 20h4M18 7h5m-2.5-2.5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><span class="greeting-wave" id="installed-wave" aria-hidden="true" hidden>👋</span><span id="welcome" style="font-weight:800;opacity:1"></span><span class="greeting-spark" aria-hidden="true">✦</span></div>
         <nav class="quick-gooey-nav" aria-label="Quick navigation">
         <button type="button" id="locbar" class="pf-entry gooey-entry location-entry" onclick="openLocModal()" title="Change location" aria-label="Change location"><span class="quick-icon">📍</span><span class="location-label">Set location</span></button>
