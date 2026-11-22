@@ -1158,6 +1158,10 @@ body:has(#screen-dish.on) #foodbuddy-assistant{bottom:calc(84px + env(safe-area-
 #screen-home .quick-gooey-nav>.gooey-entry:has(#pf-entry-av):active{transform:translateY(2px);box-shadow:none}
 #screen-home #pf-entry-av{width:27px;height:27px;flex:0 0 27px}
 </style>
+<style>
+#kitchen-buddy-modal{z-index:225}.kitchen-buddy-picker{max-width:370px!important;padding:22px 18px!important;max-height:88svh;overflow:auto;background:#fffbf1!important}.kitchen-buddy-picker h2{font-family:"Chalkboard SE","Comic Sans MS",cursive;font-size:22px;margin:0 32px 18px 0}
+.kitchen-buddy-options button{position:relative;grid-template-columns:60px 1fr;min-height:86px;padding:12px;gap:5px 12px;border-radius:17px}.kitchen-buddy-options button>span{width:60px;height:56px;display:grid;place-items:center;grid-row:1/4}.kitchen-buddy-options .chef-cat-avatar{width:54px;height:54px}.kitchen-buddy-options button img{width:56px;height:56px;object-fit:contain}.kitchen-buddy-options .chef-cat-avatar img{object-fit:cover}.kitchen-buddy-options b{font-size:15px}.kitchen-buddy-options small{font-size:10px;line-height:1.5}.kitchen-buddy-options em{font-size:11px;font-weight:800;font-style:normal;color:#b16b35}.kitchen-buddy-options .buddy-coming:disabled{opacity:1;background:#f6f1e7;border-color:#e6decd;color:#a28a6d}.custom-buddy-symbol{font-size:33px;color:#bda683;background:#eee5d5;border-radius:15px}
+</style>
 </head><body>
 <div class="shell">
 
@@ -2625,6 +2629,7 @@ function useGps(){
   );
 }
 function startLocation(){
+  if(T.nick&&!buddySelectionDone()){if(document.getElementById('kitchen-buddy-modal'))openKitchenBuddyPicker(true);else document.addEventListener('DOMContentLoaded',()=>openKitchenBuddyPicker(true),{once:true});return;}
   // Looks like a real location prompt: if not yet set, open the lookup.
   if(T.loc.region) return;
   try{if(localStorage.getItem('washoku_location_prompt_seen')) return;localStorage.setItem('washoku_location_prompt_seen','1');}catch(e){if(window.locationPromptSeen)return;}
@@ -2890,8 +2895,17 @@ function renderProfile(){
   collection.innerHTML=GAME.history.length?'<div class="kitchen-cooked-grid">'+GAME.history.slice().reverse().map(h=>`<button onclick="openHistoryPreview('${h.id}')"><div>${h.photo?`<img src="${h.photo}" alt="My finished dish" loading="lazy" decoding="async">`:'🍳'}<span>${h.visibility==='community'?'🌿':'🔒'}</span></div><b>Omurice</b><small>${h.when||'Recently cooked'}</small></button>`).join('')+'</div>':`<div class="kitchen-empty"><span aria-hidden="true">🍽️</span><p>Your first plate starts here.</p><button onclick="openFavouriteRecipe('omurice')">Cook Omurice →</button></div>`;
  }
 }
-function openKitchenBuddyPicker(){const modal=document.getElementById('kitchen-buddy-modal');modal.querySelector('.kitchen-buddy-options').innerHTML=['cat','dog','capybara'].map(key=>{const b=buddyMeta(key),locked=key!=='cat';return `<button class="${GAME.buddy===key?'chosen':''}" aria-pressed="${GAME.buddy===key}" ${locked?'disabled':''} onclick="chooseKitchenBuddy('${key}')"><span>${key==='cat'?chefCatMarkup():b.icon}</span><b>${b.name}</b><small>${locked?'🔒 Not unlocked yet':b.trait}</small></button>`;}).join('');modal.classList.add('on');}
-function chooseKitchenBuddy(key){setBuddy(key);document.getElementById('kitchen-buddy-modal').classList.remove('on');}
+let buddyOnboarding=false;
+function buddySelectionDone(){try{return localStorage.getItem('foodbuddy_buddy_chosen')==='cat';}catch(e){return !!window.foodbuddyBuddyChosen;}}
+function openKitchenBuddyPicker(firstTime=false){
+ buddyOnboarding=firstTime;
+ const modal=document.getElementById('kitchen-buddy-modal');
+ document.getElementById('kitchen-buddy-title').textContent=firstTime?'Meet your Food Buddy':'Choose your Food Buddy';
+ modal.querySelector('.kitchen-buddy-options').innerHTML=`<button type="button" class="chosen" onclick="chooseKitchenBuddy('cat')"><span>${chefCatMarkup()}</span><b>Cat Chef</b><small>Ready to cook with you</small><em>Choose →</em></button><button type="button" class="buddy-coming" disabled><span><img src="assets/canadian-otter-buddy.png" alt="Canadian otter chef" width="56" height="56"></span><b>Canadian Otter</b><small>🇨🇦 即将登陆 · Coming soon</small></button><button type="button" class="buddy-coming" disabled><span class="custom-buddy-symbol">✧</span><b>Create your own</b><small>上传图片打造专属伙伴 · 敬请期待</small></button>`;
+ modal.classList.add('on');modal.querySelector('.chosen').focus();
+}
+function closeKitchenBuddyPicker(){if(buddyOnboarding){chooseKitchenBuddy('cat');return;}document.getElementById('kitchen-buddy-modal').classList.remove('on');}
+function chooseKitchenBuddy(key){if(key!=='cat')return;const firstTime=buddyOnboarding;setBuddy('cat');try{localStorage.setItem('foodbuddy_buddy_chosen','cat');}catch(e){}window.foodbuddyBuddyChosen=true;buddyOnboarding=false;document.getElementById('kitchen-buddy-modal').classList.remove('on');if(firstTime)startLocation();}
 function openHistoryPreview(id){const item=GAME.history.find(h=>String(h.id)===String(id));if(!item)return;document.getElementById('history-preview-image').src=item.photo||PHOTO.omurice;document.getElementById('history-preview-title').textContent='Japanese Omelette Rice';document.getElementById('history-preview-meta').innerHTML=`<span>${item.visibility==='community'?'🌿 Shared to Community':'🔒 Private'}</span><span>${item.when||'Recently cooked'}</span><span>${buddyMeta(item.buddy).icon} Cooked with ${buddyMeta(item.buddy).name}</span>`;document.getElementById('history-preview-note').textContent=item.caption||'No note was added for this finished dish.';document.getElementById('history-preview-modal').classList.add('on');}
 function closeHistoryPreview(){document.getElementById('history-preview-modal').classList.remove('on');}
 function openFavouriteRecipe(key){PROFILE_RETURN='profile';openDish(key);}
@@ -3182,7 +3196,7 @@ function updateChefContext(){
  document.addEventListener('visibilitychange',()=>{if(document.hidden)hide();});schedule();
 })();
 </script>
-<div class="modal" id="kitchen-buddy-modal" role="dialog" aria-modal="true" aria-labelledby="kitchen-buddy-title"><div class="pcard kitchen-buddy-picker"><button class="buddy-picker-close" aria-label="Close buddy selection" onclick="document.getElementById('kitchen-buddy-modal').classList.remove('on')">×</button><h2 id="kitchen-buddy-title">Choose your Buddy</h2><div class="kitchen-buddy-options"></div></div></div><script>document.getElementById('kitchen-buddy-modal').addEventListener('click',function(event){if(event.target===this)this.classList.remove('on');});</script>
+<div class="modal" id="kitchen-buddy-modal" role="dialog" aria-modal="true" aria-labelledby="kitchen-buddy-title"><div class="pcard kitchen-buddy-picker"><button class="buddy-picker-close" aria-label="Close buddy selection" onclick="closeKitchenBuddyPicker()">×</button><h2 id="kitchen-buddy-title">Choose your Buddy</h2><div class="kitchen-buddy-options"></div></div></div><script>document.getElementById('kitchen-buddy-modal').addEventListener('click',function(event){if(event.target===this)closeKitchenBuddyPicker();});</script>
 <script>
 (function syncChefAvatar(){
  if(GAME.buddy!=='cat'){GAME.buddy='cat';saveGame();}
