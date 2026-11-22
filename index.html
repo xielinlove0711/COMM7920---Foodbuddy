@@ -14,7 +14,7 @@
 </script>
 
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#d76b3e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Food buddy"><link rel="apple-touch-icon" href="assets/food-buddy-icon-180.png">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Food buddy</title>
 <style>
 :root{
@@ -1325,6 +1325,18 @@ body:has(#screen-login.on)>.shell{padding-bottom:0;min-height:100vh;min-height:1
 #screen-home .matcher-footer{bottom:var(--app-bottom-height);padding-left:var(--app-bar-side-left);padding-right:var(--app-bar-side-right)}
 #screen-dish>.wrap{padding-left:var(--app-bar-side-left);padding-right:var(--app-bar-side-right)}
 @media(max-width:360px){#screen-home .home-header{padding-left:var(--app-bar-side-left);padding-right:var(--app-bar-side-right)}}
+</style>
+<style id="phone-viewport-fix">
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;width:100%;overflow-x:clip}body{width:100%;min-width:0;overflow-x:clip}.shell,.screen{width:100%;min-width:0;max-width:100%}.shell{max-width:880px}img,video,iframe{max-width:100%}
+.modal{box-sizing:border-box;max-width:100%;max-height:100%;padding: max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));overflow-y:auto;overscroll-behavior:contain}.modal>.pcard{max-width:100%;box-sizing:border-box;max-height:calc(100svh - 48px);overflow-y:auto}
+#foodbuddy-splash{height:100%;height:100dvh;max-height:100dvh;align-items:center;justify-content:center}
+#foodbuddy-splash .splash-card{width:min(82vw,320px,calc((100svh - 132px)*.916));max-width:100%;max-height:calc(100svh - 64px);flex:none}
+#foodbuddy-splash .splash-art-frame{width:100%;flex:none;aspect-ratio:916/1000;border-radius:20px}
+#foodbuddy-splash-art{width:calc(100% + 8px);height:calc(100% + 6px);max-height:none;max-width:none;object-fit:cover;margin:-3px -4px}
+#foodbuddy-splash .splash-close{right:9px;top:9px;width:34px;height:34px}
+#foodbuddy-splash .splash-dismiss-today{font-size:12px;line-height:1.4;padding-top:12px;min-height:36px}
+@media(max-width:600px),(pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),textarea,select,#ingredients-panel .ing-input,#screen-matcher .ing-input{font-size:16px!important}#screen-home .home-header>div{min-width:0;max-width:100%}#screen-home .quick-gooey-nav{min-width:0;max-width:100%}#screen-home .quick-gooey-nav .location-entry{min-width:0;overflow:hidden}#screen-home .quick-gooey-nav .location-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#screen-home .greeting-brand{min-width:0}#screen-dish #tabs{max-width:100%}#screen-dish #tabs button{min-width:0}}
+@media(max-width:360px){#screen-home #welcome{font-size:17px}#screen-home .home-header>div{column-gap:8px}#screen-home .quick-gooey-nav .location-label{max-width:110px}}
 </style>
 </head><body>
 <div class="shell">
