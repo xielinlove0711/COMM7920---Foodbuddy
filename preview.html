@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Food buddy · Mobile preview</title>
+<meta name="theme-color" content="#fbf1df">
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 50% 40%,#fffaf0,#f3e3ca);color:#855239}.preview-header{position:fixed;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;gap:15px}.brand{font-weight:800;font-size:19px;letter-spacing:-.4px}.brand span{display:block;font-size:11px;font-weight:500;letter-spacing:.2px;color:#a08062;margin-top:3px}a{color:#885737;font-size:12px;text-decoration:none;border:1px solid #dfc8a7;border-radius:99px;padding:9px 14px;background:#fff9ee}a:focus-visible{outline:3px solid #df8a47;outline-offset:4px}.stage{position:absolute;inset:76px 16px 24px;display:flex;align-items:center;justify-content:center}.phone-space{position:relative;flex:none}.phone{position:absolute;top:0;left:0;width:417px;height:824px;padding:12px;background:#4b362c;border:1px solid #795b45;border-radius:48px;box-shadow:0 25px 60px #6d442133,0 4px 10px #6d442126,inset 0 0 0 4px #6a4d39;transform-origin:top left}.phone:before{content:"";position:absolute;left:-4px;top:135px;width:3px;height:58px;background:#6a4d39;border-radius:4px}.phone:after{content:"";position:absolute;right:-4px;top:160px;width:3px;height:72px;background:#6a4d39;border-radius:4px}.screen{width:393px;height:800px;border-radius:36px;overflow:hidden;background:#fbf3e6;isolation:isolate}iframe{display:block;width:393px;height:800px;border:0;background:#fbf3e6}
+@media(max-width:600px){.preview-header{padding:14px 18px}.brand{font-size:17px}.stage{inset:70px 12px 18px}}
+</style>
+</head>
+<body>
+<header class="preview-header"><div class="brand">Food buddy<span>Mobile experience</span></div><a id="open-app" href="./index.html" target="_blank" rel="noopener">Open full page ↗</a></header>
+<main class="stage" aria-label="Interactive mobile preview"><div class="phone-space"><div class="phone"><div class="screen"><iframe id="app" title="Food buddy mobile app" allow="geolocation; camera; clipboard-write" allowfullscreen></iframe></div></div></div></main>
+<script>
+(function(){
+ const destination=new URL('./index.html',location.href);destination.search=location.search;
+ if(matchMedia('(max-width:600px) and (pointer:coarse)').matches){location.replace(destination.href);return;}
+ document.getElementById('app').src=destination.href;document.getElementById('open-app').href=destination.href;
+ const stage=document.querySelector('.stage'),space=document.querySelector('.phone-space'),phone=document.querySelector('.phone');
+ function fit(){const rect=stage.getBoundingClientRect();const scale=Math.max(.1,Math.min(1, (rect.width-8)/417,(rect.height-8)/824));space.style.width=(417*scale)+'px';space.style.height=(824*scale)+'px';phone.style.transform='scale('+scale+')';}
+ new ResizeObserver(fit).observe(stage);fit();
+})();
+</script>
+</body>
+</html>
